@@ -8,7 +8,7 @@ function FuncComponent() {
 			Functional Component
 			<p>
 				<button onClick={() => setI(i - 1)}>-</button>
-				<a>{i}</a>
+				{i}
 				<button onClick={() => setI(i + 1)}>+</button>
 			</p>
 		</div>

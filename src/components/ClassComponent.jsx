@@ -14,7 +14,7 @@ class ClassComponent extends Component {
 				Class Component
 				<p>
 					<button onClick={() => this.setState({ i: this.state.i - 1 })}>-</button>
-					<a>{this.state.i}</a>
+					{this.state.i}
 					<button onClick={() => this.setState({ i: this.state.i + 1 })}>+</button>
 				</p>
 			</div>
