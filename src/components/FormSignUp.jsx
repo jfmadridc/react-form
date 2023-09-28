@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	Button,
 	TextField,
@@ -9,6 +9,10 @@ import {
 
 function FormSignUp() {
 	const [firstName, setfirstName] = useState("");
+	useEffect(() => {
+		console.log("useEffect: ", firstName);
+	}, [firstName]);
+
 	return (
 		<FormGroup>
 			<TextField
@@ -20,6 +24,7 @@ function FormSignUp() {
 				margin="normal"
 				onChange={(e) => {
 					setfirstName(e.target.value);
+					console.log("useState: ", firstName);
 				}}
 				value={firstName}
 			/>
