@@ -1,8 +1,14 @@
-import { Button, TextField } from "@mui/material";
+import {
+	Button,
+	TextField,
+	Switch,
+	FormGroup,
+	FormControlLabel,
+} from "@mui/material";
 
 function FormSignUp() {
 	return (
-		<form>
+		<FormGroup>
 			<TextField
 				id="first-name"
 				label="First Name"
@@ -30,14 +36,14 @@ function FormSignUp() {
 				margin="normal"
 			/>
 
-			<label>Promotions</label>
-			<input type="checkbox" />
-
-			<label>News</label>
-			<input type="checkbox" />
+			<FormControlLabel
+				control={<Switch defaultChecked />}
+				label="Promotions"
+			/>
+			<FormControlLabel control={<Switch />} label="News" />
 
 			<Button variant="contained">Sign Up</Button>
-		</form>
+		</FormGroup>
 	);
 }
 
