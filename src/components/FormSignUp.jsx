@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-	Button,
-	TextField,
-	Switch,
-	FormGroup,
-	FormControlLabel,
-} from "@mui/material";
+import { Button, TextField, Switch, FormControlLabel } from "@mui/material";
 
 function FormSignUp() {
 	const [firstName, setfirstName] = useState("");
@@ -13,6 +7,28 @@ function FormSignUp() {
 	const [email, setEmail] = useState("");
 	const [promotions, setPromotions] = useState(true);
 	const [news, setNews] = useState(false);
+
+	const [errors, setErrors] = useState({
+		firstName: {
+			error: false,
+			message: "",
+		},
+	});
+
+	function validateFirstName(firstName) {
+		if (firstName.length <= 1) {
+			return {
+				firstName: {
+					error: true,
+					message: "First Name must be at least 2 characters",
+				},
+			};
+		} else {
+			return {
+				firstName: { error: false, message: "" },
+			};
+		}
+	}
 
 	return (
 		<form
@@ -32,6 +48,11 @@ function FormSignUp() {
 				onChange={(e) => {
 					setfirstName(e.target.value);
 					// console.log("useState: ", firstName);
+				}}
+				error={errors.firstName.error}
+				helperText={errors.firstName.error ? errors.firstName.message : ""}
+				onBlur={(e) => {
+					setErrors(validateFirstName(e.target.value));
 				}}
 			/>
 
