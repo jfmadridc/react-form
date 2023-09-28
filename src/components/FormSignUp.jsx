@@ -16,6 +16,9 @@ function FormSignUp() {
 				required
 				fullWidth
 				margin="normal"
+				onChange={(e) => {
+					console.log(e.target.value);
+				}}
 			/>
 
 			<TextField
