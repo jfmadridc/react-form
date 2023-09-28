@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
 	Button,
 	TextField,
@@ -9,12 +9,18 @@ import {
 
 function FormSignUp() {
 	const [firstName, setfirstName] = useState("");
-	useEffect(() => {
-		console.log("useEffect: ", firstName);
-	}, [firstName]);
+	const [lastName, setLastName] = useState("");
+	const [email, setEmail] = useState("");
+	const [promotions, setPromotions] = useState(true);
+	const [news, setNews] = useState(false);
 
 	return (
-		<FormGroup>
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				console.log(firstName, lastName, email, promotions, news);
+			}}
+		>
 			<TextField
 				id="first-name"
 				label="First Name"
@@ -22,11 +28,11 @@ function FormSignUp() {
 				required
 				fullWidth
 				margin="normal"
+				value={firstName}
 				onChange={(e) => {
 					setfirstName(e.target.value);
-					console.log("useState: ", firstName);
+					// console.log("useState: ", firstName);
 				}}
-				value={firstName}
 			/>
 
 			<TextField
@@ -36,6 +42,8 @@ function FormSignUp() {
 				required
 				fullWidth
 				margin="normal"
+				value={lastName}
+				onChange={(e) => setLastName(e.target.value)}
 			/>
 
 			<TextField
@@ -45,16 +53,27 @@ function FormSignUp() {
 				required
 				fullWidth
 				margin="normal"
+				value={email}
+				onChange={(e) => setEmail(e.target.value)}
 			/>
 
 			<FormControlLabel
-				control={<Switch defaultChecked />}
+				control={<Switch />}
 				label="Promotions"
+				checked={promotions}
+				onChange={() => setPromotions(!promotions)}
 			/>
-			<FormControlLabel control={<Switch />} label="News" />
+			<FormControlLabel
+				control={<Switch />}
+				label="News"
+				checked={news}
+				onChange={(e) => setNews(e.target.checked)}
+			/>
 
-			<Button variant="contained">Sign Up</Button>
-		</FormGroup>
+			<Button variant="contained" type="submit" fullWidth>
+				Sign Up
+			</Button>
+		</form>
 	);
 }
 
