@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	Button,
 	TextField,
@@ -7,6 +8,7 @@ import {
 } from "@mui/material";
 
 function FormSignUp() {
+	const [firstName, setfirstName] = useState("");
 	return (
 		<FormGroup>
 			<TextField
@@ -17,8 +19,9 @@ function FormSignUp() {
 				fullWidth
 				margin="normal"
 				onChange={(e) => {
-					console.log(e.target.value);
+					setfirstName(e.target.value);
 				}}
+				value={firstName}
 			/>
 
 			<TextField
