@@ -76,6 +76,22 @@ function FormSignUp() {
 			onSubmit={(e) => {
 				e.preventDefault();
 				console.log(firstName, lastName, email, promotions, news);
+
+				if (
+					firstName &&
+					lastName &&
+					email &&
+					!errorName.firstName.error &&
+					!errorLast.lastName.error &&
+					!errorEmail.error
+				) {
+					alert("Thanks for signing up! ");
+					setFirstName("");
+					setLastName("");
+					setEmail("");
+					setPromotions(true);
+					setNews(false);
+				}
 			}}
 		>
 			<TextField
