@@ -2,21 +2,33 @@ import { useState } from "react";
 import { Button, TextField, Switch, FormControlLabel } from "@mui/material";
 
 function FormSignUp() {
-	const [firstName, setfirstName] = useState("");
+	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [promotions, setPromotions] = useState(true);
 	const [news, setNews] = useState(false);
 
-	const [errors, setErrors] = useState({
+	const [errorName, setErrorName] = useState({
 		firstName: {
 			error: false,
 			message: "",
 		},
 	});
 
+	const [errorLast, setErrorLast] = useState({
+		lastName: {
+			error: false,
+			message: "",
+		},
+	});
+
+	const [errorEmail, setErrorEmail] = useState({
+		error: false,
+		message: "",
+	});
+
 	function validateFirstName(firstName) {
-		if (firstName.length <= 1) {
+		if (firstName.length < 2) {
 			return {
 				firstName: {
 					error: true,
@@ -28,6 +40,35 @@ function FormSignUp() {
 				firstName: { error: false, message: "" },
 			};
 		}
+	}
+
+	function validateLastName(lastName) {
+		if (lastName.length < 3) {
+			return {
+				lastName: {
+					error: true,
+					message: "Last Name must be at least 3 characters",
+				},
+			};
+		} else {
+			return {
+				lastName: { error: false, message: "" },
+			};
+		}
+	}
+
+	function validateEmail(email) {
+		const re = /\S+@\S+\.\S+/;
+		if (!re.test(email)) {
+			return {
+				error: true,
+				message: "Please enter a valid email address",
+			};
+		}
+		return {
+			error: false,
+			message: "",
+		};
 	}
 
 	return (
@@ -46,13 +87,14 @@ function FormSignUp() {
 				margin="normal"
 				value={firstName}
 				onChange={(e) => {
-					setfirstName(e.target.value);
-					// console.log("useState: ", firstName);
+					setFirstName(e.target.value);
 				}}
-				error={errors.firstName.error}
-				helperText={errors.firstName.error ? errors.firstName.message : ""}
+				error={errorName.firstName.error}
+				helperText={
+					errorName.firstName.error ? errorName.firstName.message : ""
+				}
 				onBlur={(e) => {
-					setErrors(validateFirstName(e.target.value));
+					setErrorName(validateFirstName(e.target.value));
 				}}
 			/>
 
@@ -65,6 +107,11 @@ function FormSignUp() {
 				margin="normal"
 				value={lastName}
 				onChange={(e) => setLastName(e.target.value)}
+				error={errorLast.lastName.error}
+				helperText={errorLast.lastName.error ? errorLast.lastName.message : ""}
+				onBlur={(e) => {
+					setErrorLast(validateLastName(e.target.value));
+				}}
 			/>
 
 			<TextField
@@ -76,6 +123,11 @@ function FormSignUp() {
 				margin="normal"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
+				error={errorEmail.error}
+				helperText={errorEmail.error ? errorEmail.message : ""}
+				onBlur={(e) => {
+					setErrorEmail(validateEmail(e.target.value));
+				}}
 			/>
 
 			<FormControlLabel
